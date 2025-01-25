@@ -1,6 +1,5 @@
 import sys
-import csv
-from utils.ft_math import mean, std, percentile, median, quartile, min_value, max_value, count
+from utils.ft_math import ft_mean, ft_std, ft_median, ft_quartile, ft_min, ft_max, ft_count
 from utils.ft_utils import read_csv, get_numeric_columns
 
 ignore_columns = [
@@ -19,14 +18,14 @@ def describe_data(numeric_data):
     stats = {}
     for feature, values in numeric_data.items():
         stats[feature] = {
-            'Count': count(values),
-            'Mean': mean(values),
-            'Std': std(values),
-            'Min': min_value(values),
-            '25%': quartile(values, 0.25),
-            '50%': median(values),
-            '75%': quartile(values, 0.75),
-            'Max': max_value(values)
+            'Count': ft_count(values),
+            'Mean': ft_mean(values),
+            'Std': ft_std(values),
+            'Min': ft_min(values),
+            '25%': ft_quartile(values, 0.25),
+            '50%': ft_median(values),
+            '75%': ft_quartile(values, 0.75),
+            'Max': ft_max(values)
         }
     return stats
 

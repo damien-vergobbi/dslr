@@ -9,7 +9,7 @@ def read_csv(filename):
             data = list(reader)
         return data
     except FileNotFoundError:
-        print(f"Erreur: Le fichier {filename} n'existe pas")
+        print(f"Error: The file {filename} does not exist")
         sys.exit(1)
 
 def is_numeric(value):
@@ -21,8 +21,8 @@ def is_numeric(value):
         return False
 
 def get_numeric_columns(data, ignore_columns = []):
+    """Get numeric columns from data"""
     numeric_data = {}
-    
     
     if not data:
         return numeric_data

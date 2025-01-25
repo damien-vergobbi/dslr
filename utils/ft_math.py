@@ -1,26 +1,29 @@
-def sum_values(values):
+def ft_sum(values):
     """ Sum the values of a list """
     total = 0
     for value in values:
         total += value
     return total
 
-def mean(values):
+def ft_mean(values):
     """ Calculate the mean of a list """
     if not values:
         return 0
-    return sum_values(values) / len(values)
+    return ft_sum(values) / len(values)
 
-def std(values):
+def ft_std(values):
     """ Calculate the standard deviation of a list """
     if len(values) <= 1:
         return 0
-    m = mean(values)
-    squared_diff_sum = sum_values((x - m) ** 2 for x in values)
-    return sqrt(squared_diff_sum / (len(values) - 1))
+    m = ft_mean(values)
+    squared_diff_sum = ft_sum((x - m) ** 2 for x in values)
+    return ft_sqrt(squared_diff_sum / (len(values) - 1))
 
-def percentile(values, p):
-    """ Calculate the percentile of a list """
+def ft_percentile(values, p):
+    """ Calculate the percentile of a list.
+
+    p is the percentile to calculate
+    """
     if not values:
         return 0
     sorted_values = sorted(values)
@@ -31,15 +34,18 @@ def percentile(values, p):
         return sorted_values[f] * (1 - c) + sorted_values[f + 1] * c
     return sorted_values[f]
 
-def median(values):
+def ft_median(values):
     """ Calculate the median of a list """
-    return percentile(values, 0.5)
+    return ft_percentile(values, 0.5)
 
-def quartile(values, q):
-    """ Calculate the quartile of a list """
-    return percentile(values, q)
+def ft_quartile(values, q):
+    """ Calculate the quartile of a list.
+    
+    q is the quartile to calculate
+    """
+    return ft_percentile(values, q)
 
-def min_value(values):
+def ft_min(values):
     """ Calculate the minimum value of a list """
     if not values:
         return 0
@@ -49,7 +55,7 @@ def min_value(values):
             result = value
     return result
 
-def max_value(values):
+def ft_max(values):
     """ Calculate the maximum value of a list """
     if not values:
         return 0
@@ -59,11 +65,11 @@ def max_value(values):
             result = value
     return result
 
-def count(values):
+def ft_count(values):
     """ Calculate the count of a list """
     return len(values)
 
-def product(values):
+def ft_product(values):
     """ Calculate the product of a list """
     if not values:
         return 0
@@ -72,11 +78,11 @@ def product(values):
         result *= value
     return result
 
-def cumsum(values):
+def ft_cumsum(values):
     """ Calculate the cumulative sum of a list """
-    return [sum_values(values[:i+1]) for i in range(len(values))]
+    return [ft_sum(values[:i+1]) for i in range(len(values))]
 
-def sqrt(x):
+def ft_sqrt(x):
     """ Calculate the square root of a number """
     if x < 0:
         raise ValueError("math domain error")
