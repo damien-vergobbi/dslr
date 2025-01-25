@@ -37,7 +37,7 @@ def median(values):
 
 def quartile(values, q):
     """ Calculate the quartile of a list """
-    return percentile(values, q / 4)
+    return percentile(values, q)
 
 def min_value(values):
     """ Calculate the minimum value of a list """

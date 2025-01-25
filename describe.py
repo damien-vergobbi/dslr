@@ -74,7 +74,20 @@ def main():
     # Get the numeric columns without the ignore_columns
     numeric_data = get_numeric_columns(data, ignore_columns)
     stats = describe_data(numeric_data)
+    
+    # Print stats
     display_stats(stats)
+    
+    # print("\n=== Pandas (Verification only) ===")
+    # import pandas as pd
+    # df = pd.DataFrame(data)
+    # df = df.drop(columns=ignore_columns)
+    
+    # # Convertir les colonnes en type numérique
+    # for col in df.columns:
+    #     df[col] = pd.to_numeric(df[col], errors='coerce')
+    
+    # print(df.describe())
 
 if __name__ == "__main__":
     main()
