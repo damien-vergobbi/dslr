@@ -105,7 +105,7 @@ def create_histograms(data):
     
     # Table header
     print("-" * course_width + "-+-" + "-" * score_width)
-    print(f"{BOLD}{'Cours':<{course_width}} | {'Score':>10}{END}")
+    print(f"{BOLD}{'Course':<{course_width}} | {'Score':>10}{END}")
     print("-" * course_width + "-+-" + "-" * score_width)
     
     # Table data
