@@ -98,3 +98,13 @@ def ft_sqrt(x):
         if abs(new_guess - guess) < epsilon:
             return new_guess
         guess = new_guess
+
+def ft_minmax(values):
+    """Normalise les données entre 0 et 1"""
+    if not values:
+        return []
+    min_val = ft_min(values)
+    max_val = ft_max(values)
+    if max_val == min_val:
+        return [0.5 for _ in values]
+    return [(x - min_val) / (max_val - min_val) for x in values]

@@ -41,4 +41,3 @@ def get_numeric_columns(data, ignore_columns = []):
             numeric_data[column] = values
             
     return numeric_data
-

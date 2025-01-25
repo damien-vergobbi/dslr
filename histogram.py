@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from utils.ft_utils import read_csv, get_numeric_columns
-from utils.ft_math import ft_mean, ft_std
+from utils.ft_math import ft_mean, ft_std, ft_minmax
 from utils.constants import BOLD, GREEN, BLUE, END
 
 # Define columns to ignore
@@ -15,12 +15,16 @@ ignore_columns = [
 
 def calculate_homogeneity(house_data, course):
     """Calculate homogeneity score for a course"""
+    normalized_data = {}
+    for house, data in house_data.items():
+        normalized_data[house] = ft_minmax(data[course])
+    
     # Get statistics for each house
     house_stats = {}
-    for house, data in house_data.items():
+    for house, data in normalized_data.items():
         house_stats[house] = {
-            'mean': ft_mean(data[course]),
-            'std': ft_std(data[course])
+            'mean': ft_mean(normalized_data[house]),
+            'std': ft_std(normalized_data[house])
         }
     
     # Calculate differences between houses
@@ -92,13 +96,10 @@ def create_histograms(data):
         fig.delaxes(axes[idx])
 
     
-    print(f"\n{BOLD}Le cours avec la distribution la plus homogène est : {GREEN}{most_homogeneous[0]}{END}")
-    print(f"{BOLD}Score d'homogénéité : {BLUE}{most_homogeneous[1]:.2f}{END}")
+    print(f"{BOLD}Most homogeneous course: {GREEN}{most_homogeneous[0]}{END}")
+    print(f"{BOLD}Homogeneity score: {BLUE}{most_homogeneous[1]:.2f}{END}")
     
     # Display all scores in table format
-    print(f"\n{BOLD}Courses sorted by homogeneity (from most homogeneous to least homogeneous):{END}")
-    
-    # Define column width
     course_width = max(len(course) for course in sorted_courses)
     score_width = 10
     
