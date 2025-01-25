@@ -1,7 +1,7 @@
 import sys
 import csv
-from ft_math import mean, std, percentile, median, quartile, min_value, max_value, count
-from ft_utils import read_csv, get_numeric_columns
+from utils.ft_math import mean, std, percentile, median, quartile, min_value, max_value, count
+from utils.ft_utils import read_csv, get_numeric_columns
 
 ignore_columns = [
     'Index',
