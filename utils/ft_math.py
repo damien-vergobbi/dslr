@@ -100,7 +100,8 @@ def ft_sqrt(x):
         guess = new_guess
 
 def ft_minmax(values):
-    """Normalise les données entre 0 et 1"""
+    """Normalize the data between 0 and 1"""
+    values = list(values)  # Convert to list
     if not values:
         return []
     min_val = ft_min(values)
