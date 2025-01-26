@@ -1,12 +1,14 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from utils.ft_math import ft_sum
 from utils.constants import BOLD, END
 
 class LogisticRegression:
-    def __init__(self, learning_rate=0.1, iterations=500):
+    def __init__(self, learning_rate=0.01, iterations=1000, lambda_reg=0.01):
         self.lr = learning_rate
         self.iterations = iterations
+        self.lambda_reg = lambda_reg
         self.weights = None
         self.bias = None
         self.loss_history = []
@@ -32,31 +34,39 @@ class LogisticRegression:
         self.weights = np.zeros(n_features)
         self.bias = 0
         self.loss_history = []
-
-        for _ in range(self.iterations):
+        
+        initial_lr = self.lr
+        
+        for i in range(self.iterations):
             linear_pred = np.dot(X, self.weights) + self.bias
             predictions = self.sigmoid(linear_pred)
             
-            # Gradient descent
-            dw = (1/n_samples) * np.dot(X.T, (predictions - y))
-            db = (1/n_samples) * np.sum(predictions - y)
+            dw = (1/n_samples) * np.dot(X.T, (predictions - y)) + (self.lambda_reg * self.weights)
+            db = (1/n_samples) * ft_sum(predictions - y)
             
-            self.weights -= self.lr * dw
-            self.bias -= self.lr * db
-
-            # Calculate and store loss
+            current_lr = initial_lr / (1 + i/100)
+            
+            self.weights -= current_lr * dw
+            self.bias -= current_lr * db
+            
             loss = -np.mean(y * np.log(predictions + 1e-15) + 
                           (1-y) * np.log(1-predictions + 1e-15))
+            loss += (self.lambda_reg/2) * ft_sum(self.weights**2)
             self.loss_history.append(loss)
+            
+            if i > 50 and abs(self.loss_history[-1] - self.loss_history[-2]) < 1e-5:
+                print(f"Convergence atteinte à l'itération {i}")
+                break
 
     def predict_proba(self, X):
         linear_pred = np.dot(X, self.weights) + self.bias
         return self.sigmoid(linear_pred)
 
 def preprocess_data(df):
-    # Select features based on analysis
     features = ['Astronomy', 'Herbology', 'Ancient Runes', 'Charms']
     X = df[features].fillna(df[features].mean())
+    
+    X = (X - X.mean()) / X.std()
     return X
 
 def calculate_accuracy(y_true, y_pred):
