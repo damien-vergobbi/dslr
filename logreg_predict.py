@@ -35,14 +35,21 @@ def predict_house(X, weights_df):
     
     return pd.DataFrame(predictions).idxmax(axis=1)
 
+def preprocess_data(df):
+    features = ['Astronomy', 'Herbology', 'Ancient Runes', 'Charms']
+    X = df[features].fillna(df[features].mean())
+    
+    # Normaliser les données comme dans l'entraînement
+    X = (X - X.mean()) / X.std()
+    return X
+
 def main():
     # Load data
     test_df = pd.read_csv('./datasets/dataset_test.csv')
     weights_df = pd.read_csv('weights.csv', index_col=0)
     
-    # Preprocess features
-    features = ['Astronomy', 'Herbology', 'Ancient Runes', 'Charms']
-    X = test_df[features].fillna(test_df[features].mean())
+    # Utiliser la nouvelle fonction de prétraitement
+    X = preprocess_data(test_df)
     
     # Make predictions
     predictions = predict_house(X.values, weights_df)
